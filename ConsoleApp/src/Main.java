@@ -19,16 +19,17 @@ public class Main {
         } else if (args.length > 2) {
             System.out.println("You have given more than two parameters");
         }
+
         List<Integer> result = new ArrayList<>();
 
         if (parameterOne.endsWith(".txt")) {
             System.out.println("We are going to read a file");
-            int[] numbers = getNumbersFromFile(parameterOne);
+            List<Integer> numbers = getNumbersFromFile(parameterOne);
             result = processNumbers(numbers);
         } else {
             if (isValidNumber(parameterOne)) {
                 System.out.println("get numbers from standard input");
-                int[] numbers = getNumbersFromStdInput();
+                List<Integer> numbers = getNumbersFromStdInput();
                 result = processNumbers(numbers);
             } else {
                 System.out.println("First parameter is not valid, must be positive integer or path to text file");
@@ -40,7 +41,10 @@ public class Main {
         //WHERE DO WE PUT IT?
 
         if(parameterTwo.equals("")) {
-            System.out.println("We are printing into a standard output");
+            System.out.println("The result is:");
+            for(int i = 0; i < result.size();i++) {
+                System.out.println(result.get(i));
+            }
         } else {
             System.out.println("We are printing into a file");
         }
@@ -59,33 +63,33 @@ public class Main {
         }
     }
 
-    public static int[] getNumbersFromFile(String filePath) {
+    public static List<Integer> getNumbersFromFile(String filePath) {
         return null;
     }
 
-    public static int[] getNumbersFromStdInput() {
+    public static List<Integer> getNumbersFromStdInput() {
         return null;
     }
 
-    public static List<Integer> processNumbers(int[] numbers) {
+    public static List<Integer> processNumbers(List<Integer> numbers) {
         List<Integer> result = new ArrayList<>();
         if (arrayIsEven(numbers)) {
-            for (int i = 0; i < numbers.length; i++) {
-                if (numbers[i] % 2 == 0) {
-                    result.add(numbers[i]);
+            for (int i = 0; i < numbers.size(); i++) {
+                if (numbers.get(i) % 2 == 0) {
+                    result.add(numbers.get(i));
                 }
             }
         } else {
-            for (int i = 0; i < numbers.length; i++) {
-                if (numbers[i] % 2 != 0) {
-                    result.add(numbers[i]);
+            for (int i = 0; i < numbers.size(); i++) {
+                if (numbers.get(i) % 2 != 0) {
+                    result.add(numbers.get(i));
                 }
             }
         }
         return result;
     }
 
-    public static boolean arrayIsEven(int[] numbers) {
-        return numbers.length % 2 == 0;
+    public static boolean arrayIsEven(List<Integer> numbers) {
+        return numbers.size() % 2 == 0;
     }
 }
