@@ -1,17 +1,44 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        String parameterOne = "";
+        String parameterTwo = "";
+        System.out.println("Hello world");
+        if (args.length == 0) {
+            System.out.println("You have given no parameters");
+        } else {
+            parameterOne = args[0];
+        }
+        if (args.length == 2) {
+            parameterTwo = args[1];
+            if (!parameterTwo.endsWith(".txt")) {
+                System.out.println("Second parameter must be path to a text file");
+                parameterTwo = "";
+            }
+        } else if (args.length > 2) {
+            System.out.println("You have given more than two parameters");
+        }
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        if (parameterOne.endsWith(".txt")) {
+            System.out.println("We are going to read a file");
+        } else {
+            if (isValidNumber(parameterOne)) {
+                System.out.println("get numbers from standard input");
+            } else {
+                System.out.println("First parameter is not valid, must be positive integer or path to text file");
+            }
+        }
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+
+    }
+
+    public static boolean isValidNumber(String parameter) {
+        try {
+            double number = Double.parseDouble(parameter);
+            return number > 0 && number == (int) number;
+        } catch (NumberFormatException | NullPointerException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }
