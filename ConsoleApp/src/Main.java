@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,9 +41,9 @@ public class Main {
 
         //WHERE DO WE PUT IT?
 
-        if(parameterTwo.equals("")) {
+        if (parameterTwo.equals("")) {
             System.out.println("The result is:");
-            for(int i = 0; i < result.size();i++) {
+            for (int i = 0; i < result.size(); i++) {
                 System.out.println(result.get(i));
             }
         } else {
@@ -68,7 +69,17 @@ public class Main {
     }
 
     public static List<Integer> getNumbersFromStdInput() {
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input integers separated by a comma(','): ");
+        String input = scanner.nextLine();
+        String[] numbersAsStrings = input.split(",");
+        List<Integer> numbers = new ArrayList<>();
+
+        for(int i = 0; i < numbersAsStrings.length;i++) {
+            Integer num = Integer.parseInt(numbersAsStrings[i]);
+            numbers.add(num);
+        }
+        return numbers;
     }
 
     public static List<Integer> processNumbers(List<Integer> numbers) {
