@@ -9,48 +9,46 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String parameterOne = "";
-        String parameterTwo = "";
-        if (args.length == 0) {
-            System.out.println("You have given no parameters");
-            System.exit(0);
-        } else {
-            parameterOne = args[0];
+        if (args.length == 0 || args.length > 2) {
+            handleInvalidParameters(args);
         }
+        String parameterOne = args[0];
+        String parameterTwo = "";
+
         if (args.length == 2) {
             parameterTwo = args[1];
             if (!parameterTwo.endsWith(".txt")) {
                 System.out.println("Second parameter must be path to a text file");
                 System.exit(0);
             }
-        } else if (args.length > 2) {
-            System.out.println("You have given more than two parameters");
-            System.exit(0);
         }
 
         List<Integer> result = new ArrayList<>();
 
         if (parameterOne.endsWith(".txt")) {
-            List<Integer> numbers = getNumbersFromFile(parameterOne);
-            result = processNumbers(numbers);
+            result = processFile(parameterOne);
+        } else if (isValidNumber(parameterOne)) {
+            result = processStdInput();
         } else {
-            if (isValidNumber(parameterOne)) {
-                List<Integer> numbers = getNumbersFromStdInput();
-                result = processNumbers(numbers);
-            } else {
-                System.out.println("First parameter is not valid, must be positive integer or path to text file");
-                System.exit(0);
-            }
+            System.out.println("First parameter is not valid, must be positive integer or path to text file");
+            System.exit(0);
         }
 
         if (parameterTwo.equals("")) {
-            System.out.println("The result is:");
-            for (int i = 0; i < result.size(); i++) {
-                System.out.println(result.get(i));
-            }
+            printResult(result);
         } else {
             writeResultToFile(result, parameterTwo);
         }
+    }
+
+
+    public static void handleInvalidParameters(String[] args) {
+        if (args.length == 0) {
+            System.out.println("You have given no parameters");
+        } else {
+            System.out.println("You have given more than two parameters");
+        }
+        System.exit(0);
     }
 
     public static boolean isValidNumber(String parameter) {
@@ -63,7 +61,7 @@ public class Main {
         }
     }
 
-    public static List<Integer> getNumbersFromFile(String filePath) {
+    public static List<Integer> processFile(String filePath) {
         Path path = Paths.get(filePath);
         List<Integer> numbers = new ArrayList<>();
         try {
@@ -77,10 +75,10 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Input file does not exist");
         }
-        return numbers;
+        return processNumbers(numbers);
     }
 
-    public static List<Integer> getNumbersFromStdInput() {
+    public static List<Integer> processStdInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input integers separated by a comma(','): ");
         String input = scanner.nextLine();
@@ -91,7 +89,7 @@ public class Main {
             Integer num = Integer.parseInt(numbersAsStrings[i]);
             numbers.add(num);
         }
-        return numbers;
+        return processNumbers(numbers);
     }
 
     public static List<Integer> processNumbers(List<Integer> numbers) {
@@ -122,6 +120,13 @@ public class Main {
             Files.write(path, content, StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("Unable to write to file: " + filePath);
+        }
+    }
+
+    public static void printResult(List<Integer> result) {
+        System.out.println("The result is:");
+        for (int i = 0; i < result.size(); i++) {
+            System.out.println(result.get(i));
         }
     }
 }
