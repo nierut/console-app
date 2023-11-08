@@ -96,7 +96,7 @@ public class Main {
 
     public static List<Integer> processNumbers(List<Integer> numbers) {
         List<Integer> result = new ArrayList<>();
-        if (arrayIsEven(numbers)) {
+        if (numbers.size() % 2 == 0) {
             for (int i = 0; i < numbers.size(); i++) {
                 if (numbers.get(i) % 2 == 0) {
                     result.add(numbers.get(i));
@@ -110,10 +110,6 @@ public class Main {
             }
         }
         return result;
-    }
-
-    public static boolean arrayIsEven(List<Integer> numbers) {
-        return numbers.size() % 2 == 0;
     }
 
     public static void writeResultToFile(List<Integer> result, String filePath) {
