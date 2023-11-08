@@ -29,12 +29,10 @@ public class Main {
         List<Integer> result = new ArrayList<>();
 
         if (parameterOne.endsWith(".txt")) {
-            System.out.println("We are going to read a file");
             List<Integer> numbers = getNumbersFromFile(parameterOne);
             result = processNumbers(numbers);
         } else {
             if (isValidNumber(parameterOne)) {
-                System.out.println("get numbers from standard input");
                 List<Integer> numbers = getNumbersFromStdInput();
                 result = processNumbers(numbers);
             } else {
@@ -42,9 +40,6 @@ public class Main {
 
             }
         }
-        //WE HAVE A RESULT
-
-        //WHERE DO WE PUT IT?
 
         if (parameterTwo.equals("")) {
             System.out.println("The result is:");
@@ -52,13 +47,9 @@ public class Main {
                 System.out.println(result.get(i));
             }
         } else {
-            System.out.println("We are printing into a file");
             writeResultToFile(result, parameterTwo);
         }
-
-
     }
-
 
     public static boolean isValidNumber(String parameter) {
         try {
@@ -73,11 +64,11 @@ public class Main {
     public static List<Integer> getNumbersFromFile(String filePath) {
         Path path = Paths.get(filePath);
         List<Integer> numbers = new ArrayList<>();
-        try{
+        try {
             List<String> lines = Files.readAllLines(path);
-            for(int i = 0; i < lines.size();i++) {
+            for (int i = 0; i < lines.size(); i++) {
                 String[] splitLine = lines.get(i).split(",");
-                for(int j = 0; i < splitLine.length;j++) {
+                for (int j = 0; j < splitLine.length; j++) {
                     numbers.add(Integer.valueOf(splitLine[j]));
                 }
             }
@@ -94,7 +85,7 @@ public class Main {
         String[] numbersAsStrings = input.split(",");
         List<Integer> numbers = new ArrayList<>();
 
-        for(int i = 0; i < numbersAsStrings.length;i++) {
+        for (int i = 0; i < numbersAsStrings.length; i++) {
             Integer num = Integer.parseInt(numbersAsStrings[i]);
             numbers.add(num);
         }
@@ -126,13 +117,13 @@ public class Main {
     public static void writeResultToFile(List<Integer> result, String filePath) {
         Path path = Paths.get(filePath);
         List<String> content = new ArrayList<>();
-        for(int i = 0; i < result.size();i++) {
+        for (int i = 0; i < result.size(); i++) {
             content.add(String.valueOf(result.get(i)));
         }
-            try{
-                Files.write(path,content,StandardOpenOption.APPEND);
-            } catch (IOException e) {
-                System.out.println("Unable to write to file: " + filePath);
-            }
+        try {
+            Files.write(path, content, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println("Unable to write to file: " + filePath);
+        }
     }
 }
