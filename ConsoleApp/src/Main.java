@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -52,6 +53,7 @@ public class Main {
             }
         } else {
             System.out.println("We are printing into a file");
+            writeResultToFile(result, parameterTwo);
         }
 
 
@@ -119,5 +121,18 @@ public class Main {
 
     public static boolean arrayIsEven(List<Integer> numbers) {
         return numbers.size() % 2 == 0;
+    }
+
+    public static void writeResultToFile(List<Integer> result, String filePath) {
+        Path path = Paths.get(filePath);
+        List<String> content = new ArrayList<>();
+        for(int i = 0; i < result.size();i++) {
+            content.add(String.valueOf(result.get(i)));
+        }
+            try{
+                Files.write(path,content,StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                System.out.println("Unable to write to file: " + filePath);
+            }
     }
 }
