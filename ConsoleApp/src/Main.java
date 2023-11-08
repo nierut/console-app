@@ -19,20 +19,31 @@ public class Main {
         } else if (args.length > 2) {
             System.out.println("You have given more than two parameters");
         }
+        List<Integer> result = new ArrayList<>();
 
         if (parameterOne.endsWith(".txt")) {
             System.out.println("We are going to read a file");
             int[] numbers = getNumbersFromFile(parameterOne);
+            result = processNumbers(numbers);
         } else {
             if (isValidNumber(parameterOne)) {
                 System.out.println("get numbers from standard input");
                 int[] numbers = getNumbersFromStdInput();
+                result = processNumbers(numbers);
             } else {
                 System.out.println("First parameter is not valid, must be positive integer or path to text file");
-                int[] numbers = new int[1];
+
             }
         }
+        //WE HAVE A RESULT
 
+        //WHERE DO WE PUT IT?
+
+        if(parameterTwo.equals("")) {
+            System.out.println("We are printing into a standard output");
+        } else {
+            System.out.println("We are printing into a file");
+        }
 
 
     }
@@ -58,15 +69,15 @@ public class Main {
 
     public static List<Integer> processNumbers(int[] numbers) {
         List<Integer> result = new ArrayList<>();
-        if(arrayIsEven(numbers)) {
-            for(int i = 0; i < numbers.length;i++) {
-                if(numbers[i] % 2 == 0) {
+        if (arrayIsEven(numbers)) {
+            for (int i = 0; i < numbers.length; i++) {
+                if (numbers[i] % 2 == 0) {
                     result.add(numbers[i]);
                 }
             }
         } else {
-            for(int i = 0; i < numbers.length;i++) {
-                if(numbers[i] % 2 != 0) {
+            for (int i = 0; i < numbers.length; i++) {
+                if (numbers[i] % 2 != 0) {
                     result.add(numbers[i]);
                 }
             }
