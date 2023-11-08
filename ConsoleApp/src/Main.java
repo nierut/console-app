@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -65,7 +69,20 @@ public class Main {
     }
 
     public static List<Integer> getNumbersFromFile(String filePath) {
-        return null;
+        Path path = Paths.get(filePath);
+        List<Integer> numbers = new ArrayList<>();
+        try{
+            List<String> lines = Files.readAllLines(path);
+            for(int i = 0; i < lines.size();i++) {
+                String[] splitLine = lines.get(i).split(",");
+                for(int j = 0; i < splitLine.length;j++) {
+                    numbers.add(Integer.valueOf(splitLine[j]));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Input file does not exist");
+        }
+        return numbers;
     }
 
     public static List<Integer> getNumbersFromStdInput() {
