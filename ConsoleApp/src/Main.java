@@ -56,7 +56,6 @@ public class Main {
             double number = Double.parseDouble(parameter);
             return number > 0 && number == (int) number;
         } catch (NumberFormatException | NullPointerException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
