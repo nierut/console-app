@@ -13,6 +13,7 @@ public class Main {
         String parameterTwo = "";
         if (args.length == 0) {
             System.out.println("You have given no parameters");
+            System.exit(0);
         } else {
             parameterOne = args[0];
         }
@@ -20,10 +21,11 @@ public class Main {
             parameterTwo = args[1];
             if (!parameterTwo.endsWith(".txt")) {
                 System.out.println("Second parameter must be path to a text file");
-                parameterTwo = "";
+                System.exit(0);
             }
         } else if (args.length > 2) {
             System.out.println("You have given more than two parameters");
+            System.exit(0);
         }
 
         List<Integer> result = new ArrayList<>();
@@ -37,7 +39,7 @@ public class Main {
                 result = processNumbers(numbers);
             } else {
                 System.out.println("First parameter is not valid, must be positive integer or path to text file");
-
+                System.exit(0);
             }
         }
 
